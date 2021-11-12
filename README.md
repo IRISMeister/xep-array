@@ -43,3 +43,71 @@ deviceName11 id11
 [0]0.73081887 [1]0.15000284 [2]0.978628 [3]0.8470839 [4]0.26249683 [5]0.43527442 [6]0.41470742 [7]0.78146935 [8]0.066901505 [9]0.040083766
 [0]54/0 [1]58/1 [2]52/2 [3]65/3 [4]68/4 [5]57/5 [6]51/6 [7]65/7 [8]50/8 [9]62/9 [10]53/10 [11]55/11 [12]57/12 [13]57/13 [14]55/14 [15]65/15 [16]61/16 [17]52/17 [18]57/18 [19]68/19
 ```
+
+# 解説
+## XepSimple
+オブジェクト型(ECG)の繰り返し項目を配列で定義し、@Serializedを指定する例。
+ECGの内容はシリアライズされた内容をバイナリとして保持するため、IRIS側での値の参照・更新(デコード・エンコード)は困難。
+```
+XEP>s p=##class(xep.samples.DeviceClass).%OpenId(1)
+XEP>w p.deviceName
+deviceName0
+XEP>w p.arrayfloat
+2@%Collection.ListOfDT
+XEP>w p.arrayfloat.GetAt(1)
+.279621124267578125
+XEP>w p.arrayfloat.GetAt(2)
+.59127336740493774414
+XEP>zw p.arrayECG
+"ur"_$c(0,18)_"[Lxep.samples.ECG;Æé.Â«+áã"_$c(2,0,0)_"xp"_$c(0,0,0,20)_"sr"_$c(0,15)_"xep.samples.ECGSçD1¾Õ"_$c(127,148,2,0,12)_"S"_$c(0,2)_"p1B"_$c(0,3)_"p10B"_$c(0,3)_"p11B"_$c(0,2)_"p2B"_$c(0,2)_"p3S"_$c(0,2)_"p4S"_$c(0,2)_"p7S"_$c(0,2)
+    ・
+    ・
+_"$"_$c(0)_"g"_$c(0)_"¡"_$c(0,0)_"¬uq"_$c(0)_"~"_$c(0,5,0,0,0,5,0,23,0)_"¦"_$c(0)_"¦"_$c(0)_"$"_$c(0,136)_"uq"_$c(0)_"~"_$c(0,5,0,0,0,5,0)_"Ä"_$c(0)_"b"_$c(0)_"Ø"_$c(0,128,0)_"À"
+```
+
+## XepSimple2
+オブジェクト型(ECGList)の繰り返し項目をListで定義した例。
+ECGの内容はIRIS埋め込み型のデータとして保存されるため、IRIS側での値の参照・更新が可能。
+```
+XEP>s p=##class(xep.samples.DeviceClassList).%OpenId(1)
+XEP>w p.deviceName
+deviceName0
+XEP>w p.arrayfloat
+2@%Collection.ListOfDT
+XEP>w p.arrayfloat.GetAt(1)
+.279621124267578125
+XEP>w p.arrayfloat.GetAt(2)
+.59127336740493774414
+XEP>w p.listECG
+2@%Collection.ListOfObj
+XEP>w p.listECG.GetAt(1)
+4@xep.samples.ECGList
+XEP>w p.listECG.GetAt(1).p1
+65
+XEP>w p.listECG.GetAt(1).p2
+0
+XEP>w p.listECG.GetAt(1).p5.GetAt(1)
+243
+XEP>w p.listECG.GetAt(1).p5.GetAt(2)
+105
+```
+
+## XepSimple3
+オブジェクト型(ECGListId)の繰り返し項目をListで定義し、スキーマ生成にimportSchemaFull()を使用した例。
+ECGの内容はIRISのPersistent型のデータとして保存されるため、XepSimple2と同様のIRIS側での値の参照・更新が可能なことに加えて、SQLでの参照・更新も可能。
+
+```
+XEP>d $SYSTEM.SQL.Shell()
+[SQL]XEP>>select id,p1,p2,p5 from xep_samples.ECGListId where deviceid='id0'
+6.      select id,p1,p2,p5 from xep_samples.ECGListId where deviceid='id0'
+ 
+id      p1      p2      p5
+1       65      0       $lb(243,105,229,22,62)
+2       60      1       $lb(155,210,229,107,43)
+3       57      2       $lb(216,105,34,155,118)
+    ・
+    ・
+    ・
+19      63      18      $lb(217,90,40,232,119)
+20      69      19      $lb(23,166,166,36,136)
+```
