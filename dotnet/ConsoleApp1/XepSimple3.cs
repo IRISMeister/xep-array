@@ -4,18 +4,20 @@ using xep.samples;
 
 namespace XepSimpleNamespace
 {
-    public class XepSimple2
+    public class XepSimple3
     {
 
         protected static String pkgName = "xep.samples";
         protected static String schemaName = "xep_samples";
-        protected static String className = "DeviceClassList";
+        protected static String className = "DeviceClassListId";
+        protected static String collectionClassName = "ECGListId";
         protected static String classFullName = pkgName + "." + className;
+        protected static String collectionClassFullName = pkgName + "." + collectionClassName;
 
         public static void Main(string[] args)
         {
             Console.WriteLine("Generating test data.");
-            DeviceClassList[] sampleArray = DeviceClassList.generateSampleData(1000);
+            DeviceClassListId[] sampleArray = DeviceClassListId.generateSampleData(1000);
             Console.WriteLine("Done.");
 
             // EventPersister
@@ -31,11 +33,15 @@ namespace XepSimpleNamespace
             TimeSpan ts;
 
             xepPersister.Connect(host, port, irisnamespace, username, password); // connect to localhost
-            //xepPersister.DeleteExtent(classFullName);   // remove old test data
+            //Console.WriteLine("Deleting extent.");
+            //xepPersister.DeleteExtent(classFullName);             // delete old test data
+            //xepPersister.DeleteExtent(collectionClassFullName);   // delete old test data
+
             Console.WriteLine("Deleting schema and its data.");
-            xepPersister.DeleteClass(classFullName);    // remove old schema and its data
+            xepPersister.DeleteClass(classFullName);            // remove old schema and its data
+            xepPersister.DeleteClass(collectionClassFullName);  // remove old schema and its data
             Console.WriteLine("Importing schema.");
-            xepPersister.ImportSchema(classFullName);   // import flat schema
+            xepPersister.ImportSchemaFull(classFullName);       // import full schema
 
             // Event
             Event xepEvent = xepPersister.GetEvent(classFullName);
@@ -43,7 +49,7 @@ namespace XepSimpleNamespace
             sw.Start();
             /*
             for (int i=0; i < sampleArray.Length; i++) {
-                DeviceClassList sample = sampleArray[i]; 
+                DeviceClassListId sample = sampleArray[i]; 
                 xepEvent.Store(sample);
             }
             */
@@ -55,20 +61,21 @@ namespace XepSimpleNamespace
             Console.WriteLine($"　{ts}");
 
             // EventQuery
-            EventQuery<DeviceClassList> xepQuery = null;
-            String sqlQuery = "SELECT ID,* FROM " + schemaName + "." + className + " WHERE deviceId=? and fromTS=?";
+            EventQuery<DeviceClassListId> xepQuery = null;
+            String sqlQuery = "SELECT * FROM " + schemaName + "." + className + " WHERE deviceId=? and fromTS=?";
 
             sw.Restart();
-            xepQuery = xepEvent.CreateQuery<DeviceClassList>(sqlQuery);
+            xepQuery = xepEvent.CreateQuery<DeviceClassListId>(sqlQuery);
             xepQuery.AddParameter("id3");
-            xepQuery.AddParameter("2020-01-01 00:16:40");
+            //xepQuery.AddParameter("2020-01-01 00:16:40");
+            xepQuery.AddParameter("2020/01/01 0:16:40");
             xepQuery.Execute();
 
             float ftemp = 0;
             byte b1temp = 0;
             byte b2temp = 0;
             // There is no EventQueryIterator in .NET
-            DeviceClassList record = xepQuery.GetNext();
+            DeviceClassListId record = xepQuery.GetNext();
             while (record != null)
             {
                 Console.WriteLine(record.deviceName + " "+ record.deviceId);

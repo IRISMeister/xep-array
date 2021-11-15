@@ -7,38 +7,43 @@ namespace xep.samples
     // Cannot add the third index...
     [Index(name = "idx1", fields = new string[] { "deviceId" }, type = IndexType.simple),
      Index(name = "idx2", fields = new string[] { "fromTS" }, type = IndexType.simple)]
-    public class DeviceClassList
+    public class DeviceClassListId
     {
         public long position;
         public String deviceName;
         public String deviceId;
-        public DateTime fromTS;
-        public DateTime toTS;
+        // There is no limit of the number of fields in a composite IdKey, but the fields must be String, int, or long, or their corresponding System types
+        // DateTimeはidkeyの一部を構成できないので、Stringで保存。
+        // Stringで保持するのも、日時表現のゆらぎや、where条件下で不利なので避けたいところ。
+        // xepQuery.GetNext()で例外発生。理由不明。
+        // +		$exception	{"オブジェクト参照がオブジェクト インスタンスに設定されていません。"}	InterSystems.XEP.XEPException
+        public String fromTS;
+        public String toTS;
         public double number1;
         public float number2;
         public float number3;
         public float number4;
         public float number5;
         public float[] arrayfloat;
-        public List<ECGList> listECG;
+        public List<ECGListId> listECG;
 
-        public DeviceClassList() { }
+        public DeviceClassListId() { }
 
-        public static DeviceClassList[] generateSampleData(int count)
+        public static DeviceClassListId[] generateSampleData(int count)
         {
             Random rnd = new Random();
             DateTime baseTS = new DateTime(2020, 1, 1, 0, 0, 0);
-            DeviceClassList[] s = new DeviceClassList[5*count];
+            DeviceClassListId[] s = new DeviceClassListId[5*count];
             for (int dev = 0; dev < 5; dev++)
             {
                 for (int i = 0; i < count; i++)
                 {
-                    s[dev*count+i]= new DeviceClassList();
+                    s[dev*count+i]= new DeviceClassListId();
                     s[dev*count+i].position = dev * count + i;
                     s[dev*count+i].deviceName = "deviceName" + dev;
                     s[dev*count+i].deviceId = "id" + dev;
-                    s[dev*count+i].fromTS = baseTS.AddSeconds(i * 100);
-                    s[dev*count+i].toTS = baseTS.AddSeconds(i * 100 + 99);
+                    s[dev*count+i].fromTS = baseTS.AddSeconds(i * 100).ToString();
+                    s[dev*count+i].toTS = baseTS.AddSeconds(i * 100 + 99).ToString();
                     s[dev*count+i].number1 = (float)12345;
                     s[dev*count+i].number2 = (float)1;
                     s[dev*count+i].number3 = (float)2;
@@ -49,7 +54,7 @@ namespace xep.samples
                     {
                         s[dev*count+i].arrayfloat[j] = (float)rnd.NextDouble();
                     }
-                    s[dev*count+i].listECG = ECGList.generateSampleData(rnd, 400);
+                    s[dev*count+i].listECG = ECGListId.generateSampleData(rnd, 400, s[dev * count + i].deviceId, s[dev * count + i].fromTS);
                 }
             }
             return s;
