@@ -7,10 +7,10 @@ import com.intersystems.xep.annotations.IndexType;
 import java.util.ArrayList;
 import java.util.List;
 
-@Index(name="idkey",fields={"deviceid","id"},type=IndexType.idkey)
+@Index(name="idkey",fields={"deviceId","id"},type=IndexType.idkey)
 public class ECGListId  {	
 	public  long                      id;
-	public  String                    deviceid;
+	public  String                    deviceId;
 	public  short                     p1;
 	public  byte                      p2;
 	public  byte                      p3;
@@ -26,12 +26,12 @@ public class ECGListId  {
     
     public ECGListId() {}
     
-    public static List<ECGListId> generateSampleData(Random rnd,int count,String deviceid) {
+    public static List<ECGListId> generateSampleData(Random rnd,int count,String deviceId) {
     	List<ECGListId> s = new ArrayList<ECGListId>();
         for (int i=0;i<count;i++) {
         	ECGListId e = new ECGListId();
         	e.id=i+1;
-        	e.deviceid=deviceid;
+        	e.deviceId=deviceId;
             e.p1=(short)(rnd.nextInt(20)+50);
             e.p2=(byte)i;
             e.p3=2;

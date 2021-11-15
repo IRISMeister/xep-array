@@ -4,18 +4,18 @@ using xep.samples;
 
 namespace XepSimpleNamespace
 {
-    public class XepSimple2
+    public class XepSimple3
     {
 
         protected static String pkgName = "xep.samples";
         protected static String schemaName = "xep_samples";
-        protected static String className = "DeviceClassList";
+        protected static String className = "DeviceClassListId";
         protected static String classFullName = pkgName + "." + className;
 
         public static void Main(string[] args)
         {
             // Generate 12 SingleStringSample objects for use as test data
-            DeviceClassList[] sampleArray = DeviceClassList.generateSampleData(12);
+            DeviceClassListId[] sampleArray = DeviceClassListId.generateSampleData(12);
 
             // EventPersister
             EventPersister xepPersister = PersisterFactory.CreatePersister();
@@ -29,13 +29,13 @@ namespace XepSimpleNamespace
             xepPersister.Connect(host, port, irisnamespace, username, password); // connect to localhost
             xepPersister.DeleteExtent(classFullName);   // remove old test data
             xepPersister.DeleteClass(classFullName);   // remove old schema
-            xepPersister.ImportSchema(classFullName);   // import flat schema
+            xepPersister.ImportSchemaFull(classFullName);   // import full schema
 
             // Event
             Event xepEvent = xepPersister.GetEvent(classFullName);
             /*
             for (int i=0; i < sampleArray.Length; i++) {
-                DeviceClassList sample = sampleArray[i]; 
+                DeviceClassListId sample = sampleArray[i]; 
                 xepEvent.Store(sample);
             }
             */
@@ -45,16 +45,16 @@ namespace XepSimpleNamespace
 
 
             // EventQuery
-            EventQuery<DeviceClassList> xepQuery = null;
+            EventQuery<DeviceClassListId> xepQuery = null;
             String sqlQuery = "SELECT * FROM " + schemaName + "." + className + " WHERE %ID BETWEEN ? AND ? order by ID";
 
-            xepQuery = xepEvent.CreateQuery<DeviceClassList>(sqlQuery);
+            xepQuery = xepEvent.CreateQuery<DeviceClassListId>(sqlQuery);
             xepQuery.AddParameter(3);    // assign value 3 to first SQL parameter
             xepQuery.AddParameter(12);   // assign value 12 to second SQL parameter
             xepQuery.Execute();            // get resultset for IDs between 3 and 12
 
             // There is no EventQueryIterator in .NET
-            DeviceClassList record = xepQuery.GetNext();
+            DeviceClassListId record = xepQuery.GetNext();
             while (record != null)
             {
                 Console.WriteLine(record.deviceName + " "+ record.deviceId);

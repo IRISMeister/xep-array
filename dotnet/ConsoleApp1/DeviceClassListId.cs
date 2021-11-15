@@ -5,7 +5,7 @@ using InterSystems.XEP.Attributes;
 namespace xep.samples
 {
     [Index(name = "idx1", fields = new string[] { "deviceId" }, type = IndexType.simple)]
-    public class DeviceClassList
+    public class DeviceClassListId
     {
 
         public String deviceName;
@@ -16,17 +16,17 @@ namespace xep.samples
         public float number4;
         public float number5;
         public float[] arrayfloat;
-        public List<ECGList> listECG;
+        public List<ECGListId> listECG;
 
-        public DeviceClassList() { }
+        public DeviceClassListId() { }
 
-        public static DeviceClassList[] generateSampleData(int count)
+        public static DeviceClassListId[] generateSampleData(int count)
         {
             Random rnd = new Random();
-            DeviceClassList[] s = new DeviceClassList[count];
+            DeviceClassListId[] s = new DeviceClassListId[count];
             for (int i = 0; i < count; i++)
             {
-                s[i] = new DeviceClassList();
+                s[i] = new DeviceClassListId();
                 s[i].deviceName = "deviceName" + i;
                 s[i].deviceId = "id" + i;
                 s[i].number1 = (float)12345;
@@ -39,7 +39,7 @@ namespace xep.samples
                 {
                     s[i].arrayfloat[j] = (float)rnd.NextDouble();
                 }
-                s[i].listECG = ECGList.generateSampleData(rnd, 20);
+                s[i].listECG = ECGListId.generateSampleData(rnd, 20, s[i].deviceId);
             }
             return s;
         }
