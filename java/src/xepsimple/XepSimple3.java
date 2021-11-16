@@ -21,7 +21,7 @@ public class XepSimple3 {
     xepPersister.importSchemaFull(classFullName);   // import schema
 
     // Event
-    Event xepEvent = xepPersister.getEvent(classFullName);
+    Event xepEvent = xepPersister.getEvent(classFullName,Event.INDEX_MODE_SYNC);
 	System.out.println("saving");
 /*
     for (int i=0; i < sampleArray.length; i++) {

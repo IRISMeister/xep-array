@@ -3,11 +3,15 @@ import java.util.Random;
 
 import com.intersystems.xep.annotations.Index;
 import com.intersystems.xep.annotations.IndexType;
+import com.intersystems.xep.annotations.Indices;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Index(name="idkey",fields={"deviceId","id"},type=IndexType.idkey)
+@Indices({
+	 @Index(name="idkey",fields={"deviceId","id"},type=IndexType.idkey),
+	 @Index(name="idx3",fields={"p2"},type=IndexType.simple)
+	})
 public class ECGListId  {	
 	public  long                      id;
 	public  String                    deviceId;

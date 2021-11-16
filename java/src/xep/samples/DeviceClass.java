@@ -3,8 +3,13 @@ import java.util.Random;
 import com.intersystems.xep.annotations.Index;
 import com.intersystems.xep.annotations.IndexType;
 import com.intersystems.xep.annotations.Serialized;
+import com.intersystems.xep.annotations.Indices;
 
-@Index(name="idx1",fields={"deviceId"},type=IndexType.simple)
+@Indices({
+ @Index(name="idx1",fields={"deviceId"},type=IndexType.simple),
+ @Index(name="idx2",fields={"deviceName"},type=IndexType.simple),
+ @Index(name="idx3",fields={"number1"},type=IndexType.simple)
+})
 public class DeviceClass {
 	
 	public  String                     deviceName;
