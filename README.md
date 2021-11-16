@@ -92,22 +92,3 @@ XEP>w p.listECG.GetAt(1).p5.GetAt(2)
 105
 ```
 
-## XepSimple3
-オブジェクト型(ECGListId)の繰り返し項目をListで定義し、スキーマ生成にimportSchemaFull()を使用した例。
-ECGの内容はIRISのPersistent型のデータとして保存されるため、XepSimple2と同様のIRIS側での値の参照・更新が可能なことに加えて、SQLでの参照・更新も可能。
-
-```
-XEP>d $SYSTEM.SQL.Shell()
-[SQL]XEP>>select id,p1,p2,p5 from xep_samples.ECGListId where deviceid='id0'
-6.      select id,p1,p2,p5 from xep_samples.ECGListId where deviceid='id0'
- 
-id      p1      p2      p5
-1       65      0       $lb(243,105,229,22,62)
-2       60      1       $lb(155,210,229,107,43)
-3       57      2       $lb(216,105,34,155,118)
-    ・
-    ・
-    ・
-19      63      18      $lb(217,90,40,232,119)
-20      69      19      $lb(23,166,166,36,136)
-```
