@@ -6,8 +6,10 @@ public class XepSimple3 {
   protected   static  String              pkgName = "xep.samples";
   protected   static  String              schemaName = "xep_samples";
   protected   static  String              className = "DeviceClassListId";
+  protected   static String               collectionClassName = "ECGListId";
   protected   static  String              classFullName = pkgName+"."+className;
-
+  protected   static String               collectionClassFullName = pkgName + "." + collectionClassName;
+  
   public static void main(String[] args) throws Exception {
 	System.out.println("Generating test data...");
 	DeviceClassListId[] sampleArray = DeviceClassListId.generateSampleData(12);
@@ -16,8 +18,8 @@ public class XepSimple3 {
 	System.out.println("Generating schema");
     EventPersister xepPersister = PersisterFactory.createPersister();
     xepPersister.connect("127.0.0.1",1972,"XEP","_SYSTEM","SYS"); // connect to localhost
-    xepPersister.deleteExtent(classFullName);
     xepPersister.deleteClass(classFullName);
+    xepPersister.deleteClass(collectionClassFullName);
     xepPersister.importSchemaFull(classFullName);   // import schema
 
     // Event
