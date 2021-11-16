@@ -24,8 +24,7 @@ namespace xep.samples
         public static List<ECGList> generateSampleData(Random rnd, int count)
         {
             List<ECGList> s = new List<ECGList>();
-            for (int i = 0; i < count; i++)
-            {
+            for (int i = 0; i < count; i++) {
                 ECGList e = new ECGList();
                 e.p1 = (byte)(rnd.Next(50,70));
                 e.p2 = (byte)i;
@@ -33,8 +32,7 @@ namespace xep.samples
                 e.p4 = (byte)(rnd.Next(1,255));
                 e.p5 = new byte[5];
                 e.p6 = new byte[5];
-                for (int j = 0; j < e.p5.Length; j++)
-                {
+                for (int j = 0; j < e.p5.Length; j++) {
                     e.p5[j] = (byte)rnd.Next(255);
                     e.p6[j] = (byte)rnd.Next(255);
                 }

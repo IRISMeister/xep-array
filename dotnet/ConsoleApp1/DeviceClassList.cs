@@ -29,10 +29,8 @@ namespace xep.samples
             Random rnd = new Random();
             DateTime baseTS = new DateTime(2020, 1, 1, 0, 0, 0);
             DeviceClassList[] s = new DeviceClassList[5*count];
-            for (int dev = 0; dev < 5; dev++)
-            {
-                for (int i = 0; i < count; i++)
-                {
+            for (int dev = 0; dev < 5; dev++) {
+                for (int i = 0; i < count; i++) {
                     s[dev*count+i]= new DeviceClassList();
                     s[dev*count+i].position = dev * count + i;
                     s[dev*count+i].deviceName = "deviceName" + dev;
@@ -45,8 +43,7 @@ namespace xep.samples
                     s[dev*count+i].number4 = (float)3;
                     s[dev*count+i].number5 = (float)4;
                     s[dev*count+i].arrayfloat = new float[10];
-                    for (int j = 0; j < s[dev*count+i].arrayfloat.Length; j++)
-                    {
+                    for (int j = 0; j < s[dev*count+i].arrayfloat.Length; j++) {
                         s[dev*count+i].arrayfloat[j] = (float)rnd.NextDouble();
                     }
                     s[dev*count+i].listECG = ECGList.generateSampleData(rnd, 400);

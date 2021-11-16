@@ -1,5 +1,7 @@
 package xep.samples;
 import java.util.Random;
+import java.util.Date;
+import java.util.Calendar;
 import com.intersystems.xep.annotations.Index;
 import com.intersystems.xep.annotations.IndexType;
 import com.intersystems.xep.annotations.Serialized;
@@ -11,9 +13,12 @@ import com.intersystems.xep.annotations.Indices;
  @Index(name="idx3",fields={"number1"},type=IndexType.simple)
 })
 public class DeviceClass {
-	
+
+    public  int                        position;
 	public  String                     deviceName;
     public  String                     deviceId;
+    public  Date                       fromTS;
+    public  Date                       toTS;
     public  float                      number1;
     public  float                      number2;
     public  float                      number3;
@@ -29,22 +34,33 @@ public class DeviceClass {
     
     public static DeviceClass[] generateSampleData(int count) {
     	rnd = new Random(528314287391911L);
-    	DeviceClass[] s = new DeviceClass[count];
-        for (int i=0;i<count;i++) {
-            s[i] = new DeviceClass();
-            s[i].deviceName="deviceName"+i;
-            s[i].deviceId="id"+i;
-            s[i].number1=(float)12345;
-            s[i].number2=(float)1;
-            s[i].number3=(float)2;
-            s[i].number4=(float)3;
-            s[i].number5=(float)4;
-            s[i].arrayfloat = new float[10];
-            for (int j=0;j<s[i].arrayfloat.length;j++) {
-            	s[i].arrayfloat[j] = rnd.nextFloat();
-            }
-            s[i].arrayECG = ECG.generateSampleData(rnd,20);
+    	// Date will hold fractional milliseconds which you can't manipulate
+    	// So select fromTS will return something like 2020-01-01 00:00:00.118
+        Calendar cl = Calendar.getInstance();
+    	DeviceClass[] s = new DeviceClass[5*count];
+        for (int dev = 0; dev < 5; dev++) {
+            for (int i = 0; i < count; i++) {
+                cl.set(2020,0,1,0,0,0); // month starts from 0...
+                s[dev*count+i] = new DeviceClass();
+                s[dev*count+i].position = dev * count + i;
+                s[dev*count+i].deviceName="deviceName" + dev;
+                s[dev*count+i].deviceId="id"+ dev;
+                cl.add(Calendar.SECOND,i*100);
+                s[dev*count+i].fromTS = cl.getTime();
+                cl.add(Calendar.SECOND,99);
+                s[dev*count+i].toTS = cl.getTime();
+                s[dev*count+i].number1=(float)12345;
+                s[dev*count+i].number2=(float)1;
+                s[dev*count+i].number3=(float)2;
+                s[dev*count+i].number4=(float)3;
+                s[dev*count+i].number5=(float)4;
+                s[dev*count+i].arrayfloat = new float[10];
+                for (int j=0;j<s[dev*count+i].arrayfloat.length;j++) {
+                    s[dev*count+i].arrayfloat[j] = rnd.nextFloat();
+                }
+                s[dev*count+i].arrayECG = ECG.generateSampleData(rnd,20);
 
+            }
         }
         return s;
     }

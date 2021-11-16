@@ -16,7 +16,6 @@ public class XepSimple {
     System.out.println("Generating schema");
     EventPersister xepPersister = PersisterFactory.createPersister();
     xepPersister.connect("127.0.0.1",1972,"XEP","_SYSTEM","SYS"); // connect to localhost
-    xepPersister.deleteExtent(classFullName);
     xepPersister.deleteClass(classFullName);
     xepPersister.importSchema(classFullName);   // import schema
 
@@ -46,10 +45,16 @@ public class XepSimple {
       System.out.println(record.deviceName+" "+record.deviceId);
       for (int i=0;i<record.arrayfloat.length;i++) {
         System.out.print("["+i+"]"+record.arrayfloat[i]+" ");
+        // comparing with data source
+        if (record.arrayfloat[i] != sampleArray[record.position].arrayfloat[i]) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
       }
       System.out.println();
-      for (int i=0;i<record.arrayECG.length;i++) {
+      int elementcount=record.arrayECG.length;
+      for (int i=0;i<elementcount;i++) {
         System.out.print("["+i+"]"+record.arrayECG[i].p1+"/"+record.arrayECG[i].p2+" ");
+        // comparing with data source
+        if (record.arrayECG[i].p1 != sampleArray[record.position].arrayECG[i].p1) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
+        if (record.arrayECG[i].p2 != sampleArray[record.position].arrayECG[i].p2) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
       }
       System.out.println();
     }

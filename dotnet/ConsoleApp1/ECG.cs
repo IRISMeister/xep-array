@@ -24,8 +24,7 @@ namespace xep.samples
         public static ECG[] generateSampleData(Random rnd, int count)
         {
             ECG[] s = new ECG[count];
-            for (int i = 0; i < count; i++)
-            {
+            for (int i = 0; i < count; i++) {
                 s[i] = new ECG();
                 s[i].p1 = (byte)(rnd.Next(50,70));
                 s[i].p2 = (byte)i;
@@ -33,8 +32,7 @@ namespace xep.samples
                 s[i].p4 = (byte)(rnd.Next(1,255));
                 s[i].p5 = new byte[5];
                 s[i].p6 = new byte[5];
-                for (int j = 0; j < s[i].p5.Length; j++)
-                {
+                for (int j = 0; j < s[i].p5.Length; j++) {
                     s[i].p5[j] = (byte)rnd.Next(255);
                     s[i].p6[j] = (byte)rnd.Next(255);
                 }

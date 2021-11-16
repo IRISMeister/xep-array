@@ -29,8 +29,7 @@ namespace xep.samples
         {
             Random rnd = new Random();
             DeviceClass[] s = new DeviceClass[count];
-            for (int i = 0; i < count; i++)
-            {
+            for (int i = 0; i < count; i++) {
                 s[i] = new DeviceClass();
                 s[i].deviceName = "deviceName" + i;
                 s[i].deviceId = "id" + i;
@@ -40,8 +39,7 @@ namespace xep.samples
                 s[i].number4 = (float)3;
                 s[i].number5 = (float)4;
                 s[i].arrayfloat = new float[10];
-                for (int j = 0; j < s[i].arrayfloat.Length; j++)
-                {
+                for (int j = 0; j < s[i].arrayfloat.Length; j++) {
                     s[i].arrayfloat[j] = (float)rnd.NextDouble();
                 }
                 s[i].arrayECG = ECG.generateSampleData(rnd, 20);
