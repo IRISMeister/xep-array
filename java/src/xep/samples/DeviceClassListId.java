@@ -25,7 +25,7 @@ public class DeviceClassListId {
     public  float                      number4;
     public  float                      number5;
     public  float[]                    arrayfloat;
-    public  List<ECGListId>				   listECG;
+    public  List<ECGListId>            listECG;
         
     protected static Random       rnd;
     

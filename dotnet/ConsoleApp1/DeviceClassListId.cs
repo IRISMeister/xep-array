@@ -18,8 +18,8 @@ namespace xep.samples
         // Stringで保持するのも、日時表現のゆらぎや、where条件下で不利なので避けたいところ。
         // xepQuery.GetNext()で例外発生。理由不明。
         // +		$exception	{"オブジェクト参照がオブジェクト インスタンスに設定されていません。"}	InterSystems.XEP.XEPException
-        public String fromTS;
-        public String toTS;
+        public DateTime fromTS;
+        public DateTime toTS;
         public double number1;
         public float number2;
         public float number3;
@@ -43,8 +43,8 @@ namespace xep.samples
                     s[dev*count+i].position = dev * count + i;
                     s[dev*count+i].deviceName = "deviceName" + dev;
                     s[dev*count+i].deviceId = "id" + dev;
-                    s[dev*count+i].fromTS = baseTS.AddSeconds(i * 100).ToString();
-                    s[dev*count+i].toTS = baseTS.AddSeconds(i * 100 + 99).ToString();
+                    s[dev*count+i].fromTS = baseTS.AddSeconds(i * 100);
+                    s[dev*count+i].toTS = baseTS.AddSeconds(i * 100 + 99);
                     s[dev*count+i].number1 = (double)12345.1;
                     s[dev*count+i].number2 = (float)1.2;
                     s[dev*count+i].number3 = (float)2;

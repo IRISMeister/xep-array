@@ -19,7 +19,7 @@ public class DeviceClassList {
     public  float                      number4;
     public  float                      number5;
     public  float[]                    arrayfloat;
-    public  List<ECGList>				   listECG;
+    public  List<ECGList>              listECG;
         
     protected static Random       rnd;
     
