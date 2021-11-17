@@ -9,8 +9,8 @@ import com.intersystems.xep.annotations.Indices;
 
 @Indices({
 	 @Index(name="idx1",fields={"deviceId"},type=IndexType.simple),
-	 @Index(name="idx2",fields={"deviceName"},type=IndexType.simple),
-	 @Index(name="idx3",fields={"number1"},type=IndexType.simple)
+	 @Index(name="idx2",fields={"fromTS"},type=IndexType.simple),
+	 @Index(name="idx3",fields={"toTS"},type=IndexType.simple)
 	})
 public class DeviceClassListId {
 	

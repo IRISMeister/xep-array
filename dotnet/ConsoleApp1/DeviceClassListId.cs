@@ -4,9 +4,10 @@ using InterSystems.XEP.Attributes;
 
 namespace xep.samples
 {
-    // Cannot add the third index...
     [Index(name = "idx1", fields = new string[] { "deviceId" }, type = IndexType.simple),
-     Index(name = "idx2", fields = new string[] { "fromTS" }, type = IndexType.simple)]
+     Index(name = "idx2", fields = new string[] { "fromTS" }, type = IndexType.simple),
+     Index(name = "idx3", fields = new string[] { "toTS" }, type = IndexType.simple)
+    ]
     public class DeviceClassListId
     {
         public long position;
