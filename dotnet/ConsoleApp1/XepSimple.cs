@@ -33,27 +33,8 @@ namespace XepSimpleNamespace
             xepPersister.ImportSchema(classFullName);   // import flat schema
 
             // Event
-            Event xepEvent = xepPersister.GetEvent(classFullName);
+            Event xepEvent = xepPersister.GetEvent(classFullName, Event.INDEX_MODE_SYNC);
 
-            /* 
-             * Arrayをserialized指定すると下記のエラーが出る。
-             *  [Serialized]
-             *  public ECG[] arrayECG;
-             * 
-             * Singel valueだと成功するので、ECG内で使用している型は問題無いものと判断する。ArrayがNG？
-             *  [Serialized]
-             *  public ECG singleECG;
-             *  
-             * "型 'InterSystems.XEP.Metadata.PrimitiveSchema' のオブジェクトを型 'InterSystems.XEP.Metadata.ArraySchema' にキャストできません。"
-             * StackTrace	
-             * "場所 InterSystems.XEP.Metadata.SerialSchema.Write(Object obj, IRISListBuilder vList, EventPersister persister)\r\n   
-             * 場所 InterSystems.XEP.Metadata.PersistentSchema.Write(Object obj, IRISListBuilder vList, EventPersister persister, Boolean isArray)\r\n   
-             * 場所 InterSystems.XEP.EventPersister.writeObject(Object obj, PersistentSchema schema, Int32 indexMode)\r\n   
-             * 場所 InterSystems.XEP.Event.Store(Object obj)\r\n   
-             * 場所 XepSimpleNamespace.XepSimple.Main(String[] args) 
-             * 場所 C:\\Users\\iwamoto\\Source\\repos\\ConsoleApp1\\ConsoleApp1\\XepSimple.cs:行 50"	string
-             * TargetSite	{Void Write(System.Object, InterSystems.Data.IRISClient.List.IRISListBuilder, InterSystems.XEP.EventPersister)}	System.Reflection.MethodBase {System.Reflection.RuntimeMethodInfo}
-            */
             for (int i=0; i < sampleArray.Length; i++) {
                 DeviceClass sample = sampleArray[i]; 
                 xepEvent.Store(sample);
