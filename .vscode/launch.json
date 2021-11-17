@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch XepSimple",
+            "request": "launch",
+            "mainClass": "xepsimple.XepSimple",
+            "projectName": "xep-array"
+        },
+        {
+            "type": "java",
+            "name": "Launch XepSimple2",
+            "request": "launch",
+            "mainClass": "xepsimple.XepSimple2",
+            "projectName": "xep-array"
+        },
+        {
+            "type": "java",
+            "name": "Launch XepSimple3",
+            "request": "launch",
+            "mainClass": "xepsimple.XepSimple3",
+            "projectName": "xep-array"
+        }
+    ]
+}

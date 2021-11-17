@@ -26,10 +26,11 @@ namespace xep.samples
 
         public static DeviceClassList[] generateSampleData(int count)
         {
+            int NumOfSamplesPerRecord=5;
             Random rnd = new Random();
             DateTime baseTS = new DateTime(2020, 1, 1, 0, 0, 0);
-            DeviceClassList[] s = new DeviceClassList[5*count];
-            for (int dev = 0; dev < 5; dev++) {
+            DeviceClassList[] s = new DeviceClassList[NumOfSamplesPerRecord*count];
+            for (int dev = 0; dev < NumOfSamplesPerRecord; dev++) {
                 for (int i = 0; i < count; i++) {
                     s[dev*count+i]= new DeviceClassList();
                     s[dev*count+i].position = dev * count + i;

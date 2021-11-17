@@ -45,7 +45,7 @@ public class XepSimple3 {
     EventQueryIterator<DeviceClassListId> xepIter = xepQuery.getIterator();
     while (xepIter.hasNext()) {
       DeviceClassListId record = xepIter.next();
-      System.out.println(record.deviceName+" "+record.deviceId);
+      System.out.println(record.deviceName+" "+record.deviceId+" "+record.position);
       for (int i=0;i<record.arrayfloat.length;i++) {
         System.out.print("["+i+"]"+record.arrayfloat[i]+" ");
         // comparing with data source

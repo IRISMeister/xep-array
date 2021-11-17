@@ -33,12 +33,13 @@ public class DeviceClass {
     public DeviceClass() {}
     
     public static DeviceClass[] generateSampleData(int count) {
+        int NumOfSamplesPerRecord=5;
     	rnd = new Random(528314287391911L);
     	// Date will hold fractional milliseconds which you can't manipulate
     	// So select fromTS will return something like 2020-01-01 00:00:00.118
         Calendar cl = Calendar.getInstance();
-    	DeviceClass[] s = new DeviceClass[5*count];
-        for (int dev = 0; dev < 5; dev++) {
+    	DeviceClass[] s = new DeviceClass[NumOfSamplesPerRecord*count];
+        for (int dev = 0; dev < NumOfSamplesPerRecord; dev++) {
             for (int i = 0; i < count; i++) {
                 cl.set(2020,0,1,0,0,0); // month starts from 0...
                 s[dev*count+i] = new DeviceClass();

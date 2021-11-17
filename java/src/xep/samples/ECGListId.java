@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Indices({
-	 @Index(name="idkey",fields={"deviceId","id"},type=IndexType.idkey),
-	 @Index(name="idx3",fields={"p2"},type=IndexType.simple)
+	 @Index(name="idkey",fields={"deviceId","id"},type=IndexType.idkey)
 	})
 public class ECGListId  {	
-	public  long                      id;
+	public  int                  	id;
 	public  String                    deviceId;
 	public  short                     p1;
 	public  byte                      p2;
@@ -30,11 +29,11 @@ public class ECGListId  {
     
     public ECGListId() {}
     
-    public static List<ECGListId> generateSampleData(Random rnd,int count,String deviceId) {
+    public static List<ECGListId> generateSampleData(Random rnd,int count,String deviceId,int position) {
     	List<ECGListId> s = new ArrayList<ECGListId>();
         for (int i=0;i<count;i++) {
         	ECGListId e = new ECGListId();
-        	e.id=i+1;
+        	e.id=position*count+(i+1);
         	e.deviceId=deviceId;
             e.p1=(short)(rnd.nextInt(20)+50);
             e.p2=(byte)i;

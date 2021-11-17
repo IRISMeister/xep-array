@@ -27,8 +27,9 @@ namespace XepSimpleNamespace
             String password = "SYS"; //Credentials for InterSystems IRIS
 
             xepPersister.Connect(host, port, irisnamespace, username, password); // connect to localhost
-            xepPersister.DeleteExtent(classFullName);   // remove old test data
-            xepPersister.DeleteClass(classFullName);   // remove old test data
+            Console.WriteLine("Deleting schema and its data.");
+            xepPersister.DeleteClass(classFullName);    // remove old schema and its data
+            Console.WriteLine("Importing schema.");
             xepPersister.ImportSchema(classFullName);   // import flat schema
 
             // Event

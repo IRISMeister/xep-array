@@ -4,12 +4,11 @@ using InterSystems.XEP.Attributes;
 
 namespace xep.samples
 {
-    [Index(name = "idkey", fields = new string[] { "deviceId", "fromTS","id" }, type = IndexType.idkey)]
+    [Index(name = "idkey", fields = new string[] { "deviceId","id" }, type = IndexType.idkey)]
     public class ECGListId
     {
         public long id;
         public String deviceId;
-        public String fromTS;
         public byte p1;
         public byte p2;
         public byte p3;
@@ -25,14 +24,13 @@ namespace xep.samples
 
         public ECGListId() { }
 
-        public static List<ECGListId> generateSampleData(Random rnd, int count, String deviceId, String fromTS)
+        public static List<ECGListId> generateSampleData(Random rnd, int count, String deviceId, long position)
         {
             List<ECGListId> s = new List<ECGListId>();
             for (int i = 0; i < count; i++) {
                 ECGListId e = new ECGListId();
-                e.id = i + 1;
+                e.id = position*count+(i+1);
                 e.deviceId = deviceId;
-                e.fromTS = fromTS;
                 e.p1 = (byte)(rnd.Next(50,70));
                 e.p2 = (byte)i;
                 e.p3 = 2;

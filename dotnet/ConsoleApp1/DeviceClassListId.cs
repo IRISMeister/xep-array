@@ -31,10 +31,11 @@ namespace xep.samples
 
         public static DeviceClassListId[] generateSampleData(int count)
         {
+            int NumOfSamplesPerRecord=5;
             Random rnd = new Random();
             DateTime baseTS = new DateTime(2020, 1, 1, 0, 0, 0);
-            DeviceClassListId[] s = new DeviceClassListId[5*count];
-            for (int dev = 0; dev < 5; dev++) {
+            DeviceClassListId[] s = new DeviceClassListId[NumOfSamplesPerRecord*count];
+            for (int dev = 0; dev < NumOfSamplesPerRecord; dev++) {
                 for (int i = 0; i < count; i++) {
                     s[dev*count+i]= new DeviceClassListId();
                     s[dev*count+i].position = dev * count + i;
@@ -51,7 +52,7 @@ namespace xep.samples
                     for (int j = 0; j < s[dev*count+i].arrayfloat.Length; j++) {
                         s[dev*count+i].arrayfloat[j] = (float)rnd.NextDouble();
                     }
-                    s[dev*count+i].listECG = ECGListId.generateSampleData(rnd, 400, s[dev * count + i].deviceId, s[dev * count + i].fromTS);
+                    s[dev*count+i].listECG = ECGListId.generateSampleData(rnd, 400, s[dev * count + i].deviceId, s[dev*count+i].position);
                 }
             }
             return s;

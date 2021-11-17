@@ -26,10 +26,11 @@ public class DeviceClassList {
     public DeviceClassList() {}
     
     public static DeviceClassList[] generateSampleData(int count) {
+        int NumOfSamplesPerRecord=5;
     	rnd = new Random(528314287391911L);
         Calendar cl = Calendar.getInstance();
-    	DeviceClassList[] s = new DeviceClassList[5*count];
-        for (int dev = 0; dev < 5; dev++) {
+    	DeviceClassList[] s = new DeviceClassList[NumOfSamplesPerRecord*count];
+        for (int dev = 0; dev < NumOfSamplesPerRecord; dev++) {
             for (int i = 0; i < count; i++) {
                 cl.set(2020,0,1,0,0,0); // month starts from 0...
                 s[dev*count+i] = new DeviceClassList();

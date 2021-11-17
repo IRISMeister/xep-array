@@ -17,7 +17,7 @@ namespace XepSimpleNamespace
         public static void Main(string[] args)
         {
             Console.WriteLine("Generating test data.");
-            DeviceClassListId[] sampleArray = DeviceClassListId.generateSampleData(1000);
+            DeviceClassListId[] sampleArray = DeviceClassListId.generateSampleData(12);
             Console.WriteLine("Done.");
 
             // EventPersister
@@ -78,7 +78,7 @@ namespace XepSimpleNamespace
             DeviceClassListId record = xepQuery.GetNext();
             while (record != null)
             {
-                Console.WriteLine(record.deviceName + " "+ record.deviceId);
+                Console.WriteLine(record.deviceName + " "+ record.deviceId+" "+record.position);
                 for (int i = 0; i < record.arrayfloat.Length; i++)
                 {
                     Console.Write("[" + i + "]" + record.arrayfloat[i] + " ");

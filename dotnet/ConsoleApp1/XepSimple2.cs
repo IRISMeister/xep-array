@@ -15,7 +15,7 @@ namespace XepSimpleNamespace
         public static void Main(string[] args)
         {
             Console.WriteLine("Generating test data.");
-            DeviceClassList[] sampleArray = DeviceClassList.generateSampleData(1000);
+            DeviceClassList[] sampleArray = DeviceClassList.generateSampleData(12);
             Console.WriteLine("Done.");
 
             // EventPersister
@@ -31,7 +31,6 @@ namespace XepSimpleNamespace
             TimeSpan ts;
 
             xepPersister.Connect(host, port, irisnamespace, username, password); // connect to localhost
-            //xepPersister.DeleteExtent(classFullName);   // remove old test data
             Console.WriteLine("Deleting schema and its data.");
             xepPersister.DeleteClass(classFullName);    // remove old schema and its data
             Console.WriteLine("Importing schema.");
