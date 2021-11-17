@@ -41,17 +41,17 @@ public class DeviceClassListId {
                 cl.set(2020,0,1,0,0,0); // month starts from 0...
                 s[dev*count+i] = new DeviceClassListId();
                 s[dev*count+i].position = dev * count + i;
-                s[dev*count+i].deviceName="deviceName" + dev;
-                s[dev*count+i].deviceId="id"+ dev;
+                s[dev*count+i].deviceName = "deviceName" + dev;
+                s[dev*count+i].deviceId = "id" + dev;
                 cl.add(Calendar.SECOND,i*100);
                 s[dev*count+i].fromTS = cl.getTime();
                 cl.add(Calendar.SECOND,99);
                 s[dev*count+i].toTS = cl.getTime();
-                s[dev*count+i].number1=(float)12345;
-                s[dev*count+i].number2=(float)1;
-                s[dev*count+i].number3=(float)2;
-                s[dev*count+i].number4=(float)3;
-                s[dev*count+i].number5=(float)4;
+                s[dev*count+i].number1 = (float)12345;
+                s[dev*count+i].number2 = (float)1;
+                s[dev*count+i].number3 = (float)2;
+                s[dev*count+i].number4 = (float)3;
+                s[dev*count+i].number5 = (float)4;
                 s[dev*count+i].arrayfloat = new float[10];
                 for (int j=0;j<s[dev*count+i].arrayfloat.length;j++) {
                     s[dev*count+i].arrayfloat[j] = rnd.nextFloat();

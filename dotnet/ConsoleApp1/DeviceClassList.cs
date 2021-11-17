@@ -32,7 +32,7 @@ namespace xep.samples
             DeviceClassList[] s = new DeviceClassList[NumOfSamplesPerRecord*count];
             for (int dev = 0; dev < NumOfSamplesPerRecord; dev++) {
                 for (int i = 0; i < count; i++) {
-                    s[dev*count+i]= new DeviceClassList();
+                    s[dev*count+i] = new DeviceClassList();
                     s[dev*count+i].position = dev * count + i;
                     s[dev*count+i].deviceName = "deviceName" + dev;
                     s[dev*count+i].deviceId = "id" + dev;
@@ -47,7 +47,7 @@ namespace xep.samples
                     for (int j = 0; j < s[dev*count+i].arrayfloat.Length; j++) {
                         s[dev*count+i].arrayfloat[j] = (float)rnd.NextDouble();
                     }
-                    s[dev*count+i].listECG = ECGList.generateSampleData(rnd, 400);
+                    s[dev*count+i].listECG = ECGList.generateSampleData(rnd,20);
                 }
             }
             return s;
