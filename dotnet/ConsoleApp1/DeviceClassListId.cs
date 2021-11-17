@@ -6,12 +6,18 @@ namespace xep.samples
 {
     [Index(name = "idx1", fields = new string[] { "deviceId" }, type = IndexType.simple),
      Index(name = "idx2", fields = new string[] { "fromTS" }, type = IndexType.simple),
-     Index(name = "idx3", fields = new string[] { "toTS" }, type = IndexType.simple)]
-    public class DeviceClassList
+     Index(name = "idx3", fields = new string[] { "toTS" }, type = IndexType.simple)
+    ]
+    public class DeviceClassListId
     {
         public long position;
         public String deviceName;
         public String deviceId;
+        // There is no limit of the number of fields in a composite IdKey, but the fields must be String, int, or long, or their corresponding System types
+        // DateTimeはidkeyの一部を構成できないので、Stringで保存。
+        // Stringで保持するのも、日時表現のゆらぎや、where条件下で不利なので避けたいところ。
+        // xepQuery.GetNext()で例外発生。理由不明。
+        // +		$exception	{"オブジェクト参照がオブジェクト インスタンスに設定されていません。"}	InterSystems.XEP.XEPException
         public DateTime fromTS;
         public DateTime toTS;
         public double number1;
@@ -20,20 +26,20 @@ namespace xep.samples
         public float number4;
         public float number5;
         public float[] arrayfloat;
-        public List<ECGList> listECG;
+        public List<ECGListId> listECG;
 
-        public DeviceClassList() { }
+        public DeviceClassListId() { }
 
-        public static DeviceClassList[] generateSampleData(int count)
+        public static DeviceClassListId[] generateSampleData(int count)
         {
             int NumOfDevice=5;
             int NumOfSamplesPerDev=20;
             Random rnd = new Random();
             DateTime baseTS = new DateTime(2020, 1, 1, 0, 0, 0);
-            DeviceClassList[] s = new DeviceClassList[NumOfDevice*count];
+            DeviceClassListId[] s = new DeviceClassListId[NumOfDevice*count];
             for (int dev = 0; dev < NumOfDevice; dev++) {
                 for (int i = 0; i < count; i++) {
-                    s[dev*count+i] = new DeviceClassList();
+                    s[dev*count+i] = new DeviceClassListId();
                     s[dev*count+i].position = dev * count + i;
                     s[dev*count+i].deviceName = "deviceName" + dev;
                     s[dev*count+i].deviceId = "id" + dev;
@@ -48,7 +54,7 @@ namespace xep.samples
                     for (int j = 0; j < s[dev*count+i].arrayfloat.Length; j++) {
                         s[dev*count+i].arrayfloat[j] = (float)rnd.NextDouble();
                     }
-                    s[dev*count+i].listECG = ECGList.generateECGData(rnd,NumOfSamplesPerDev);
+                    s[dev*count+i].listECG = ECGListId.generateECGData(rnd,NumOfSamplesPerDev,s[dev*count+i].deviceId,s[dev*count+i].position);
                 }
             }
             return s;

@@ -2,29 +2,32 @@ package xepsimple;
 import com.intersystems.xep.*;
 import xep.samples.*;
 
-public class XepSimple2 {
+public class XepSimple3 {
   protected   static  String              pkgName = "xep.samples";
   protected   static  String              schemaName = "xep_samples";
-  protected   static  String              className = "DeviceClassList";
+  protected   static  String              className = "DeviceClassListId";
+  protected   static String               collectionClassName = "ECGListId";
   protected   static  String              classFullName = pkgName+"."+className;
-
+  protected   static String               collectionClassFullName = pkgName + "." + collectionClassName;
+  
   public static void main(String[] args) throws Exception {
     System.out.println("Generating test data...");
-    DeviceClassList[] sampleArray = DeviceClassList.generateSampleData(12);
+    DeviceClassListId[] sampleArray = DeviceClassListId.generateSampleData(12);
 
     // EventPersister
     System.out.println("Generating schema");
     EventPersister xepPersister = PersisterFactory.createPersister();
     xepPersister.connect("127.0.0.1",1972,"XEP","_SYSTEM","SYS"); // connect to localhost
     xepPersister.deleteClass(classFullName);
-    xepPersister.importSchema(classFullName);   // import schema
+    xepPersister.deleteClass(collectionClassFullName);
+    xepPersister.importSchemaFull(classFullName);   // import schema
 
     // Event
     Event xepEvent = xepPersister.getEvent(classFullName,Event.INDEX_MODE_SYNC);
     System.out.println("saving");
 /*
     for (int i=0; i < sampleArray.length; i++) {
-    	DeviceClassList sample = sampleArray[i]; 
+    	DeviceClassListId sample = sampleArray[i]; 
     	xepEvent.store(sample);
     }
 */
@@ -33,15 +36,15 @@ public class XepSimple2 {
 
     // EventQuery
     String sqlQuery = "SELECT * FROM "+schemaName+"."+className+" WHERE %ID BETWEEN ? AND ?";
-    EventQuery<DeviceClassList> xepQuery = xepEvent.createQuery(sqlQuery);
+    EventQuery<DeviceClassListId> xepQuery = xepEvent.createQuery(sqlQuery);
     xepQuery.setParameter(1,3);    // assign value 3 to first SQL parameter
     xepQuery.setParameter(2,12);   // assign value 12 to second SQL parameter
     xepQuery.execute();            // get resultset for IDs between 3 and 12
 
     // EventQueryIterator
-    EventQueryIterator<DeviceClassList> xepIter = xepQuery.getIterator();
+    EventQueryIterator<DeviceClassListId> xepIter = xepQuery.getIterator();
     while (xepIter.hasNext()) {
-      DeviceClassList record = xepIter.next();
+      DeviceClassListId record = xepIter.next();
       System.out.println("deviceName:"+record.deviceName+" deviceId:"+record.deviceId+" position:"+record.position+" number1:"+record.number1);
       // comparing with data source
       if (record.number1 != sampleArray[record.position].number1) { System.out.println("data mismatch!!! Abort."); System.exit(1); }

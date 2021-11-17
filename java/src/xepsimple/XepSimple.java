@@ -16,12 +16,11 @@ public class XepSimple {
     System.out.println("Generating schema");
     EventPersister xepPersister = PersisterFactory.createPersister();
     xepPersister.connect("127.0.0.1",1972,"XEP","_SYSTEM","SYS"); // connect to localhost
-    xepPersister.deleteExtent(classFullName);
     xepPersister.deleteClass(classFullName);
     xepPersister.importSchema(classFullName);   // import schema
 
     // Event
-    Event xepEvent = xepPersister.getEvent(classFullName);
+    Event xepEvent = xepPersister.getEvent(classFullName,Event.INDEX_MODE_SYNC);
     System.out.println("saving");
 /*
     for (int i=0; i < sampleArray.length; i++) {
@@ -43,13 +42,23 @@ public class XepSimple {
     EventQueryIterator<DeviceClass> xepIter = xepQuery.getIterator();
     while (xepIter.hasNext()) {
       DeviceClass record = xepIter.next();
-      System.out.println(record.deviceName+" "+record.deviceId);
+      System.out.println("deviceName:"+record.deviceName+" deviceId:"+record.deviceId+" position:"+record.position+" number1:"+record.number1);
+      // comparing with data source
+      if (record.number1 != sampleArray[record.position].number1) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
+      if (record.number2 != sampleArray[record.position].number2) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
+
       for (int i=0;i<record.arrayfloat.length;i++) {
         System.out.print("["+i+"]"+record.arrayfloat[i]+" ");
+        // comparing with data source
+        if (record.arrayfloat[i] != sampleArray[record.position].arrayfloat[i]) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
       }
       System.out.println();
-      for (int i=0;i<record.arrayECG.length;i++) {
+      int elementcount=record.arrayECG.length;
+      for (int i=0;i<elementcount;i++) {
         System.out.print("["+i+"]"+record.arrayECG[i].p1+"/"+record.arrayECG[i].p2+" ");
+        // comparing with data source
+        if (record.arrayECG[i].p1 != sampleArray[record.position].arrayECG[i].p1) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
+        if (record.arrayECG[i].p2 != sampleArray[record.position].arrayECG[i].p2) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
       }
       System.out.println();
     }

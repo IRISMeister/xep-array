@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using InterSystems.XEP.Attributes;
 
 namespace xep.samples
 {
-    public class ECGList
+    [Index(name = "idkey", fields = new string[] { "deviceId","id" }, type = IndexType.idkey)]
+    public class ECGListId
     {
-
+        public long id;
+        public String deviceId;
         public byte p1;
         public byte p2;
         public byte p3;
@@ -19,13 +22,15 @@ namespace xep.samples
         public byte p11 = 0;
         public ushort seq;
 
-        public ECGList() { }
+        public ECGListId() { }
 
-        public static List<ECGList> generateECGData(Random rnd, int count)
+        public static List<ECGListId> generateECGData(Random rnd, int count, String deviceId, long position)
         {
-            List<ECGList> s = new List<ECGList>();
+            List<ECGListId> s = new List<ECGListId>();
             for (int i = 0; i < count; i++) {
-                ECGList e = new ECGList();
+                ECGListId e = new ECGListId();
+                e.id = position*count+(i+1);
+                e.deviceId = deviceId;
                 e.p1 = (byte)(rnd.Next(50,70));
                 e.p2 = (byte)i;
                 e.p3 = 2;

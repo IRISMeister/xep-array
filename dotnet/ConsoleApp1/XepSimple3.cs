@@ -4,18 +4,20 @@ using xep.samples;
 
 namespace XepSimpleNamespace
 {
-    public class XepSimple2
+    public class XepSimple3
     {
 
         protected static String pkgName = "xep.samples";
         protected static String schemaName = "xep_samples";
-        protected static String className = "DeviceClassList";
+        protected static String className = "DeviceClassListId";
+        protected static String collectionClassName = "ECGListId";
         protected static String classFullName = pkgName + "." + className;
+        protected static String collectionClassFullName = pkgName + "." + collectionClassName;
 
         public static void Main(string[] args)
         {
             Console.WriteLine("Generating test data.");
-            DeviceClassList[] sampleArray = DeviceClassList.generateSampleData(12);
+            DeviceClassListId[] sampleArray = DeviceClassListId.generateSampleData(12);
             Console.WriteLine("Done.");
 
             // EventPersister
@@ -31,19 +33,23 @@ namespace XepSimpleNamespace
             TimeSpan ts;
 
             xepPersister.Connect(host, port, irisnamespace, username, password); // connect to localhost
+            //Console.WriteLine("Deleting extent.");
+            //xepPersister.DeleteExtent(classFullName);             // delete old test data
+            //xepPersister.DeleteExtent(collectionClassFullName);   // delete old test data
+
             Console.WriteLine("Deleting schema and its data.");
-            xepPersister.DeleteClass(classFullName);    // remove old schema and its data
+            xepPersister.DeleteClass(classFullName);            // remove old schema and its data
+            xepPersister.DeleteClass(collectionClassFullName);  // remove old schema and its data
             Console.WriteLine("Importing schema.");
-            xepPersister.ImportSchema(classFullName);   // import flat schema
+            xepPersister.ImportSchemaFull(classFullName);       // import full schema
 
             // Event
             Event xepEvent = xepPersister.GetEvent(classFullName, Event.INDEX_MODE_SYNC);
-
             Console.WriteLine("Saving data.");
             sw.Start();
             /*
             for (int i=0; i < sampleArray.Length; i++) {
-                DeviceClassList sample = sampleArray[i]; 
+                DeviceClassListId sample = sampleArray[i]; 
                 xepEvent.Store(sample);
             }
             */
@@ -55,17 +61,17 @@ namespace XepSimpleNamespace
             Console.WriteLine($"　{ts}");
 
             // EventQuery
-            EventQuery<DeviceClassList> xepQuery = null;
+            EventQuery<DeviceClassListId> xepQuery = null;
             String sqlQuery = "SELECT * FROM " + schemaName + "." + className + " WHERE %ID BETWEEN ? AND ?";
 
             sw.Restart();
-            xepQuery = xepEvent.CreateQuery<DeviceClassList>(sqlQuery);
+            xepQuery = xepEvent.CreateQuery<DeviceClassListId>(sqlQuery);
             xepQuery.AddParameter(3);    // assign value 3 to first SQL parameter
             xepQuery.AddParameter(12);   // assign value 12 to second SQL parameter
             xepQuery.Execute();          // get resultset for IDs between 3 and 12
 
             // There is no EventQueryIterator in .NET
-            DeviceClassList record = xepQuery.GetNext();
+            DeviceClassListId record = xepQuery.GetNext();
             while (record != null)
             {
                 Console.WriteLine("deviceName:"+record.deviceName+" deviceId:"+record.deviceId+" position:"+record.position+" number1:"+record.number1);

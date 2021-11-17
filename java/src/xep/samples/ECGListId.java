@@ -1,10 +1,19 @@
 package xep.samples;
 import java.util.Random;
 
+import com.intersystems.xep.annotations.Index;
+import com.intersystems.xep.annotations.IndexType;
+import com.intersystems.xep.annotations.Indices;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ECGList  {	
+@Indices({
+	 @Index(name="idkey",fields={"deviceId","id"},type=IndexType.idkey)
+	})
+public class ECGListId  {	
+	public  int                  	id;
+	public  String                    deviceId;
 	public  short                     p1;
 	public  byte                      p2;
 	public  byte                      p3;
@@ -18,12 +27,14 @@ public class ECGList  {
 	public  byte                      p11=0;
 	public  short                     seq;
     
-    public ECGList() {}
+    public ECGListId() {}
     
-    public static List<ECGList> generateECGData(Random rnd,int count) {
-    	List<ECGList> s = new ArrayList<ECGList>();
+    public static List<ECGListId> generateECGData(Random rnd,int count,String deviceId,int position) {
+    	List<ECGListId> s = new ArrayList<ECGListId>();
         for (int i=0;i<count;i++) {
-        	ECGList e = new ECGList();
+        	ECGListId e = new ECGListId();
+        	e.id=position*count+(i+1);
+        	e.deviceId=deviceId;
             e.p1=(short)(rnd.nextInt(20)+50);
             e.p2=(byte)i;
             e.p3=2;
