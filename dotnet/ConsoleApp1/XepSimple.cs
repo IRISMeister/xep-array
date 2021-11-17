@@ -12,7 +12,7 @@ namespace XepSimpleNamespace
         protected static String className = "DeviceClass";
         protected static String classFullName = pkgName + "." + className;
 
-        public static void MainX(string[] args)
+        public static void Main(string[] args)
         {
             // Generate 12 SingleStringSample objects for use as test data
             DeviceClass[] sampleArray = DeviceClass.generateSampleData(12);

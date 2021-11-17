@@ -44,7 +44,7 @@ namespace XepSimpleNamespace
             xepPersister.ImportSchemaFull(classFullName);       // import full schema
 
             // Event
-            Event xepEvent = xepPersister.GetEvent(classFullName);
+            Event xepEvent = xepPersister.GetEvent(classFullName, Event.INDEX_MODE_SYNC);
             Console.WriteLine("Saving data.");
             sw.Start();
             /*
