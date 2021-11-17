@@ -42,7 +42,7 @@ namespace xep.samples
                 for (int j = 0; j < s[i].arrayfloat.Length; j++) {
                     s[i].arrayfloat[j] = (float)rnd.NextDouble();
                 }
-                s[i].arrayECG = ECG.generateSampleData(rnd,20);
+                s[i].arrayECG = ECG.generateECGData(rnd,20);
                 //s[i].singleECG = new ECG();
                 //s[i].singleECG.p1 = 100;
             }

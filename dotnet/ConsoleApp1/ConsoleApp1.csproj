@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>XepSimpleNamespace.XepSimple3</StartupObject>
+    <StartupObject>XepSimpleNamespace.XepSimple2</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="InterSystems.Data.XEP">

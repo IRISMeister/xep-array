@@ -59,7 +59,7 @@ public class DeviceClass {
                 for (int j=0;j<s[dev*count+i].arrayfloat.length;j++) {
                     s[dev*count+i].arrayfloat[j] = rnd.nextFloat();
                 }
-                s[dev*count+i].arrayECG = ECG.generateSampleData(rnd,20);
+                s[dev*count+i].arrayECG = ECG.generateECGData(rnd,20);
 
             }
         }

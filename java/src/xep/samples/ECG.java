@@ -17,7 +17,7 @@ public class ECG implements java.io.Serializable {
     
     public ECG() {}
     
-    public static ECG[] generateSampleData(Random rnd,int count) {
+    public static ECG[] generateECGData(Random rnd,int count) {
     	ECG[] s = new ECG[count];
         for (int i=0;i<count;i++) {
             s[i] = new ECG();

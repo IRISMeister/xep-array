@@ -20,7 +20,7 @@ public class ECGList  {
     
     public ECGList() {}
     
-    public static List<ECGList> generateSampleData(Random rnd,int count) {
+    public static List<ECGList> generateECGData(Random rnd,int count) {
     	List<ECGList> s = new ArrayList<ECGList>();
         for (int i=0;i<count;i++) {
         	ECGList e = new ECGList();

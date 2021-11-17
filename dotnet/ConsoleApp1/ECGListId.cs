@@ -24,7 +24,7 @@ namespace xep.samples
 
         public ECGListId() { }
 
-        public static List<ECGListId> generateSampleData(Random rnd, int count, String deviceId, long position)
+        public static List<ECGListId> generateECGData(Random rnd, int count, String deviceId, long position)
         {
             List<ECGListId> s = new List<ECGListId>();
             for (int i = 0; i < count; i++) {

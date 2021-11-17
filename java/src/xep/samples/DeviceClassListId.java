@@ -56,7 +56,7 @@ public class DeviceClassListId {
                 for (int j=0;j<s[dev*count+i].arrayfloat.length;j++) {
                     s[dev*count+i].arrayfloat[j] = rnd.nextFloat();
                 }
-                s[dev*count+i].listECG = ECGListId.generateSampleData(rnd,20,s[dev*count+i].deviceId,s[dev*count+i].position);
+                s[dev*count+i].listECG = ECGListId.generateECGData(rnd,20,s[dev*count+i].deviceId,s[dev*count+i].position);
             }
         }
         return s;

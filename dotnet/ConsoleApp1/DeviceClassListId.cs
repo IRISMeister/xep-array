@@ -52,7 +52,7 @@ namespace xep.samples
                     for (int j = 0; j < s[dev*count+i].arrayfloat.Length; j++) {
                         s[dev*count+i].arrayfloat[j] = (float)rnd.NextDouble();
                     }
-                    s[dev*count+i].listECG = ECGListId.generateSampleData(rnd,20,s[dev*count+i].deviceId,s[dev*count+i].position);
+                    s[dev*count+i].listECG = ECGListId.generateECGData(rnd,20,s[dev*count+i].deviceId,s[dev*count+i].position);
                 }
             }
             return s;

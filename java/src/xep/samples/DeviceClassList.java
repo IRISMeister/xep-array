@@ -50,7 +50,7 @@ public class DeviceClassList {
                 for (int j=0;j<s[dev*count+i].arrayfloat.length;j++) {
                     s[dev*count+i].arrayfloat[j] = rnd.nextFloat();
                 }
-                s[dev*count+i].listECG = ECGList.generateSampleData(rnd,20);
+                s[dev*count+i].listECG = ECGList.generateECGData(rnd,20);
             }
         }
         return s;

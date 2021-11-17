@@ -29,7 +29,7 @@ public class ECGListId  {
     
     public ECGListId() {}
     
-    public static List<ECGListId> generateSampleData(Random rnd,int count,String deviceId,int position) {
+    public static List<ECGListId> generateECGData(Random rnd,int count,String deviceId,int position) {
     	List<ECGListId> s = new ArrayList<ECGListId>();
         for (int i=0;i<count;i++) {
         	ECGListId e = new ECGListId();

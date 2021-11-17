@@ -47,7 +47,7 @@ namespace xep.samples
                     for (int j = 0; j < s[dev*count+i].arrayfloat.Length; j++) {
                         s[dev*count+i].arrayfloat[j] = (float)rnd.NextDouble();
                     }
-                    s[dev*count+i].listECG = ECGList.generateSampleData(rnd,20);
+                    s[dev*count+i].listECG = ECGList.generateECGData(rnd,20);
                 }
             }
             return s;
