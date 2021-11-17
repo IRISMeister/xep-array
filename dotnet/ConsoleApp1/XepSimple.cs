@@ -70,20 +70,33 @@ namespace XepSimpleNamespace
             xepQuery = xepEvent.CreateQuery<DeviceClass>(sqlQuery);
             xepQuery.AddParameter(3);    // assign value 3 to first SQL parameter
             xepQuery.AddParameter(12);   // assign value 12 to second SQL parameter
-            xepQuery.Execute();            // get resultset for IDs between 3 and 12
+            xepQuery.Execute();          // get resultset for IDs between 3 and 12
 
             // There is no EventQueryIterator in .NET
             DeviceClass record = xepQuery.GetNext();
             while (record != null)
             {
-                Console.WriteLine(record.deviceName + " "+ record.deviceId);
+                Console.WriteLine("deviceName:"+record.deviceName+" deviceId:"+record.deviceId+" position:"+record.position+" number1:"+record.number1);
+                // comparing with data source
+                if (record.number1 != sampleArray[record.position].number1) { Console.WriteLine("data mismatch!!! Abort."); Environment.Exit(1); }
+                if (record.number2 != sampleArray[record.position].number2) { Console.WriteLine("data mismatch!!! Abort."); Environment.Exit(1); }
+
                 for (int i = 0; i < record.arrayfloat.Length; i++)
                 {
                     Console.Write("[" + i + "]" + record.arrayfloat[i] + " ");
+                    // comparing with data source
+                    if (record.arrayfloat[i] != sampleArray[record.position].arrayfloat[i]) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
+                }
+                Console.WriteLine();
+                for (int i = 0; i < record.listECG.Count; i++)
+                {
+                    Console.Write("[" + i + "]" + record.listECG[i].p1 + "/" + record.listECG[i].p2 + " ");
+                    // comparing with data source
+                    if (record.listECG[i].p1 != sampleArray[record.position].listECG[i].p1) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
+                    if (record.listECG[i].p2 != sampleArray[record.position].listECG[i].p2) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
                 }
                 Console.WriteLine();
 
-                //Console.Write("[" + 0 + "]" + record.singleECG.p1 + " ");
                 record = xepQuery.GetNext();
             }
 

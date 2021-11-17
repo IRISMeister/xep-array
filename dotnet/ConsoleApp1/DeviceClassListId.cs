@@ -44,8 +44,8 @@ namespace xep.samples
                     s[dev*count+i].deviceId = "id" + dev;
                     s[dev*count+i].fromTS = baseTS.AddSeconds(i * 100).ToString();
                     s[dev*count+i].toTS = baseTS.AddSeconds(i * 100 + 99).ToString();
-                    s[dev*count+i].number1 = (float)12345;
-                    s[dev*count+i].number2 = (float)1;
+                    s[dev*count+i].number1 = (double)12345.1;
+                    s[dev*count+i].number2 = (float)1.2;
                     s[dev*count+i].number3 = (float)2;
                     s[dev*count+i].number4 = (float)3;
                     s[dev*count+i].number5 = (float)4;

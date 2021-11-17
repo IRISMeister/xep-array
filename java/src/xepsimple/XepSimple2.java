@@ -42,7 +42,11 @@ public class XepSimple2 {
     EventQueryIterator<DeviceClassList> xepIter = xepQuery.getIterator();
     while (xepIter.hasNext()) {
       DeviceClassList record = xepIter.next();
-      System.out.println(record.deviceName+" "+record.deviceId);
+      System.out.println("deviceName:"+record.deviceName+" deviceId:"+record.deviceId+" position:"+record.position+" number1:"+record.number1);
+      // comparing with data source
+      if (record.number1 != sampleArray[record.position].number1) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
+      if (record.number2 != sampleArray[record.position].number2) { System.out.println("data mismatch!!! Abort."); System.exit(1); }
+
       for (int i=0;i<record.arrayfloat.length;i++) {
         System.out.print("["+i+"]"+record.arrayfloat[i]+" ");
         // comparing with data source

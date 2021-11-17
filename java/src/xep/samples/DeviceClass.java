@@ -19,7 +19,7 @@ public class DeviceClass {
     public  String                     deviceId;
     public  Date                       fromTS;
     public  Date                       toTS;
-    public  float                      number1;
+    public  double                     number1;
     public  float                      number2;
     public  float                      number3;
     public  float                      number4;
@@ -51,8 +51,8 @@ public class DeviceClass {
                 s[dev*count+i].fromTS = cl.getTime();
                 cl.add(Calendar.SECOND,99);
                 s[dev*count+i].toTS = cl.getTime();
-                s[dev*count+i].number1=(float)12345;
-                s[dev*count+i].number2=(float)1;
+                s[dev*count+i].number1=(double)12345.1;
+                s[dev*count+i].number2=(float)1.2;
                 s[dev*count+i].number3=(float)2;
                 s[dev*count+i].number4=(float)3;
                 s[dev*count+i].number5=(float)4;

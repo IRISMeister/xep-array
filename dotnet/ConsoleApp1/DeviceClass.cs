@@ -9,7 +9,7 @@ namespace xep.samples
     [Index(name = "idx1", fields = new string[] { "deviceId" }, type = IndexType.simple)]
     public class DeviceClass
     {
-
+        public long position;
         public String deviceName;
         public String deviceId;
         public double number1;
@@ -30,23 +30,26 @@ namespace xep.samples
             int NumOfDevice=5;
             int NumOfSamplesPerDev=20;
             Random rnd = new Random();
-            DeviceClass[] s = new DeviceClass[count];
-            for (int i = 0; i < count; i++) {
-                s[i] = new DeviceClass();
-                s[i].deviceName = "deviceName" + i;
-                s[i].deviceId = "id" + i;
-                s[i].number1 = (float)12345;
-                s[i].number2 = (float)1;
-                s[i].number3 = (float)2;
-                s[i].number4 = (float)3;
-                s[i].number5 = (float)4;
-                s[i].arrayfloat = new float[10];
-                for (int j = 0; j < s[i].arrayfloat.Length; j++) {
-                    s[i].arrayfloat[j] = (float)rnd.NextDouble();
+            DeviceClass[] s = new DeviceClass[NumOfDevice*count];
+            for (int dev = 0; dev < NumOfDevice; dev++) {
+                for (int i = 0; i < count; i++) {
+                    s[dev*count+i] = new DeviceClass();
+                    s[dev*count+i].position = dev * count + i;
+                    s[dev*count+i].deviceName = "deviceName" + dev;
+                    s[dev*count+i].deviceId = "id" + dev;
+                    s[dev*count+i].number1 = (double)12345.1;
+                    s[dev*count+i].number2 = (float)1.2;
+                    s[dev*count+i].number3 = (float)2;
+                    s[dev*count+i].number4 = (float)3;
+                    s[dev*count+i].number5 = (float)4;
+                    s[dev*count+i].arrayfloat = new float[10];
+                    for (int j = 0; j < s[dev*count+i].arrayfloat.Length; j++) {
+                        s[dev*count+i].arrayfloat[j] = (float)rnd.NextDouble();
+                    }
+                    s[dev*count+i].arrayECG = ECG.generateECGData(rnd,NumOfSamplesPerDev);
+                    //s[dev*count+i].singleECG = new ECG();
+                    //s[dev*count+i].singleECG.p1 = 100;
                 }
-                s[i].arrayECG = ECG.generateECGData(rnd,NumOfSamplesPerDev);
-                //s[i].singleECG = new ECG();
-                //s[i].singleECG.p1 = 100;
             }
             return s;
         }

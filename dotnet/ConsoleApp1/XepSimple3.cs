@@ -62,27 +62,26 @@ namespace XepSimpleNamespace
 
             // EventQuery
             EventQuery<DeviceClassListId> xepQuery = null;
-            String sqlQuery = "SELECT * FROM " + schemaName + "." + className + " WHERE deviceId=? and fromTS=?";
+            String sqlQuery = "SELECT * FROM " + schemaName + "." + className + " WHERE %ID BETWEEN ? AND ?";
 
             sw.Restart();
             xepQuery = xepEvent.CreateQuery<DeviceClassListId>(sqlQuery);
-            xepQuery.AddParameter("id3");
-            //xepQuery.AddParameter("2020-01-01 00:16:40");
-            xepQuery.AddParameter("2020/01/01 0:16:40");
-            xepQuery.Execute();
+            xepQuery.AddParameter(3);    // assign value 3 to first SQL parameter
+            xepQuery.AddParameter(12);   // assign value 12 to second SQL parameter
+            xepQuery.Execute();          // get resultset for IDs between 3 and 12
 
-            float ftemp = 0;
-            byte b1temp = 0;
-            byte b2temp = 0;
             // There is no EventQueryIterator in .NET
             DeviceClassListId record = xepQuery.GetNext();
             while (record != null)
             {
-                Console.WriteLine(record.deviceName + " "+ record.deviceId+" "+record.position);
+                Console.WriteLine("deviceName:"+record.deviceName+" deviceId:"+record.deviceId+" position:"+record.position+" number1:"+record.number1);
+                // comparing with data source
+                if (record.number1 != sampleArray[record.position].number1) { Console.WriteLine("data mismatch!!! Abort."); Environment.Exit(1); }
+                if (record.number2 != sampleArray[record.position].number2) { Console.WriteLine("data mismatch!!! Abort."); Environment.Exit(1); }
+
                 for (int i = 0; i < record.arrayfloat.Length; i++)
                 {
                     Console.Write("[" + i + "]" + record.arrayfloat[i] + " ");
-                    ftemp += record.arrayfloat[i];
                     // comparing with data source
                     if (record.arrayfloat[i] != sampleArray[record.position].arrayfloat[i]) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
                 }
@@ -90,8 +89,6 @@ namespace XepSimpleNamespace
                 for (int i = 0; i < record.listECG.Count; i++)
                 {
                     Console.Write("[" + i + "]" + record.listECG[i].p1 + "/" + record.listECG[i].p2 + " ");
-                    b1temp += record.listECG[i].p1;
-                    b2temp += record.listECG[i].p2;
                     // comparing with data source
                     if (record.listECG[i].p1 != sampleArray[record.position].listECG[i].p1) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
                     if (record.listECG[i].p2 != sampleArray[record.position].listECG[i].p2) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
