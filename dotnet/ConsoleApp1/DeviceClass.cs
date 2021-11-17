@@ -27,6 +27,8 @@ namespace xep.samples
 
         public static DeviceClass[] generateSampleData(int count)
         {
+            int NumOfDevice=5;
+            int NumOfSamplesPerDev=20;
             Random rnd = new Random();
             DeviceClass[] s = new DeviceClass[count];
             for (int i = 0; i < count; i++) {
@@ -42,7 +44,7 @@ namespace xep.samples
                 for (int j = 0; j < s[i].arrayfloat.Length; j++) {
                     s[i].arrayfloat[j] = (float)rnd.NextDouble();
                 }
-                s[i].arrayECG = ECG.generateECGData(rnd,20);
+                s[i].arrayECG = ECG.generateECGData(rnd,NumOfSamplesPerDev);
                 //s[i].singleECG = new ECG();
                 //s[i].singleECG.p1 = 100;
             }

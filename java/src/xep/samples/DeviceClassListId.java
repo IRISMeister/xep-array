@@ -32,11 +32,12 @@ public class DeviceClassListId {
     public DeviceClassListId() {}
     
     public static DeviceClassListId[] generateSampleData(int count) {
-        int NumOfSamplesPerRecord=5;
+        int NumOfDevice=5;
+        int NumOfSamplesPerDev=20;
     	rnd = new Random(528314287391911L);
         Calendar cl = Calendar.getInstance();
-    	DeviceClassListId[] s = new DeviceClassListId[NumOfSamplesPerRecord*count];
-        for (int dev = 0; dev < NumOfSamplesPerRecord; dev++) {
+    	DeviceClassListId[] s = new DeviceClassListId[NumOfDevice*count];
+        for (int dev = 0; dev < NumOfDevice; dev++) {
             for (int i = 0; i < count; i++) {
                 cl.set(2020,0,1,0,0,0); // month starts from 0...
                 s[dev*count+i] = new DeviceClassListId();
@@ -56,7 +57,7 @@ public class DeviceClassListId {
                 for (int j=0;j<s[dev*count+i].arrayfloat.length;j++) {
                     s[dev*count+i].arrayfloat[j] = rnd.nextFloat();
                 }
-                s[dev*count+i].listECG = ECGListId.generateECGData(rnd,20,s[dev*count+i].deviceId,s[dev*count+i].position);
+                s[dev*count+i].listECG = ECGListId.generateECGData(rnd,NumOfSamplesPerDev,s[dev*count+i].deviceId,s[dev*count+i].position);
             }
         }
         return s;
