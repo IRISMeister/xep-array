@@ -13,11 +13,6 @@ namespace xep.samples
         public long position;
         public String deviceName;
         public String deviceId;
-        // There is no limit of the number of fields in a composite IdKey, but the fields must be String, int, or long, or their corresponding System types
-        // DateTimeはidkeyの一部を構成できないので、Stringで保存。
-        // Stringで保持するのも、日時表現のゆらぎや、where条件下で不利なので避けたいところ。
-        // xepQuery.GetNext()で例外発生。理由不明。
-        // +		$exception	{"オブジェクト参照がオブジェクト インスタンスに設定されていません。"}	InterSystems.XEP.XEPException
         public DateTime fromTS;
         public DateTime toTS;
         public double number1;
