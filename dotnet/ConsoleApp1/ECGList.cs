@@ -5,7 +5,6 @@ namespace xep.samples
 {
     public class ECGList
     {
-
         public byte p1;
         public byte p2;
         public byte p3;
@@ -41,7 +40,6 @@ namespace xep.samples
                 e.seq = (ushort)rnd.Next(0,255);
 
                 s.Add(e);
-
             }
             return s;
         }

@@ -20,20 +20,21 @@ public class ECG implements java.io.Serializable {
     public static ECG[] generateECGData(Random rnd,int count) {
     	ECG[] s = new ECG[count];
         for (int i=0;i<count;i++) {
-            s[i] = new ECG();
-            s[i].p1=(short)(rnd.nextInt(20)+50);
-            s[i].p2=(byte)i;
-            s[i].p3=2;
-            s[i].p4=(short)(rnd.nextInt(255)+1);
-            s[i].p5 = new short[5];
-            s[i].p6 = new short[5];
-            for (int j=0;j<s[i].p5.length;j++) {
-            	s[i].p5[j] = (short)rnd.nextInt(256);
-            	s[i].p6[j] = (short)rnd.nextInt(256);
+        	ECG e = new ECG();
+            e.p1=(short)(rnd.nextInt(20)+50);
+            e.p2=(byte)i;
+            e.p3=2;
+            e.p4=(short)(rnd.nextInt(255)+1);
+            e.p5 = new short[5];
+            e.p6 = new short[5];
+            for (int j=0;j<e.p5.length;j++) {
+            	e.p5[j] = (short)rnd.nextInt(256);
+            	e.p6[j] = (short)rnd.nextInt(256);
             }
-            s[i].p7=(short)rnd.nextInt(256);
-            s[i].p8=(short)(rnd.nextInt(255)+1);
-            s[i].seq=(short)rnd.nextInt(256);
+            e.p7=(short)rnd.nextInt(256);
+            e.p8=(short)(rnd.nextInt(255)+1);
+            e.seq=(short)rnd.nextInt(256);
+            s[i]=e;
         }
         return s;
     }

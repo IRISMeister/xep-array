@@ -46,7 +46,6 @@ namespace xep.samples
                 e.seq = (ushort)rnd.Next(0,255);
 
                 s.Add(e);
-
             }
             return s;
         }

@@ -5,7 +5,6 @@ namespace xep.samples
     [Serializable]
     public class ECG
     {
-
         public byte p1;
         public byte p2;
         public byte p3;
@@ -25,21 +24,22 @@ namespace xep.samples
         {
             ECG[] s = new ECG[count];
             for (int i = 0; i < count; i++) {
-                s[i] = new ECG();
-                s[i].p1 = (byte)(rnd.Next(50,70));
-                s[i].p2 = (byte)i;
-                s[i].p3 = 2;
-                s[i].p4 = (byte)(rnd.Next(1,255));
-                s[i].p5 = new byte[5];
-                s[i].p6 = new byte[5];
-                for (int j = 0; j < s[i].p5.Length; j++) {
-                    s[i].p5[j] = (byte)rnd.Next(255);
-                    s[i].p6[j] = (byte)rnd.Next(255);
+                ECG e = new ECG();
+                e.p1 = (byte)(rnd.Next(50,70));
+                e.p2 = (byte)i;
+                e.p3 = 2;
+                e.p4 = (byte)(rnd.Next(1,255));
+                e.p5 = new byte[5];
+                e.p6 = new byte[5];
+                for (int j = 0; j < e.p5.Length; j++) {
+                    e.p5[j] = (byte)rnd.Next(255);
+                    e.p6[j] = (byte)rnd.Next(255);
                 }
-                s[i].p7 = (byte)rnd.Next(0,255);
-                s[i].p8 = (byte)(rnd.Next(1,255));
-                s[i].seq = (ushort)rnd.Next(0,255);
+                e.p7 = (byte)rnd.Next(0,255);
+                e.p8 = (byte)(rnd.Next(1,255));
+                e.seq = (ushort)rnd.Next(0,255);
 
+                s[i] = e;
             }
             return s;
         }

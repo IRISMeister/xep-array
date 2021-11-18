@@ -69,12 +69,12 @@ namespace XepSimpleNamespace
                     if (record.arrayfloat[i] != sampleArray[record.position].arrayfloat[i]) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
                 }
                 Console.WriteLine();
-                for (int i = 0; i < record.listECG.Count; i++)
+                for (int i = 0; i < record.arrayECG.Length; i++)
                 {
-                    Console.Write("[" + i + "]" + record.listECG[i].p1 + "/" + record.listECG[i].p2 + " ");
+                    Console.Write("[" + i + "]" + record.arrayECG[i].p1 + "/" + record.arrayECG[i].p2 + " ");
                     // comparing with data source
-                    if (record.listECG[i].p1 != sampleArray[record.position].listECG[i].p1) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
-                    if (record.listECG[i].p2 != sampleArray[record.position].listECG[i].p2) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
+                    if (record.arrayECG[i].p1 != sampleArray[record.position].arrayECG[i].p1) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
+                    if (record.arrayECG[i].p2 != sampleArray[record.position].arrayECG[i].p2) { Console.Write("data mismatch!!! Abort."); Environment.Exit(1); }
                 }
                 Console.WriteLine();
 
